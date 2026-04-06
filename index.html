@@ -654,25 +654,75 @@ const EJERCICIO = {
         {
           nombre: "Lunes — Fuerza Full Body (Mancuernas)",
           fases: [
-            { label: "Calentamiento (2 min)", items: ["Jumping jacks — 30s", "Rotaciones brazos — 30s", "Sentadillas sin peso — 30s", "Rotaciones cadera — 30s"] },
-            { label: "Circuito x3 (10 min) — 40s/20s", items: ["Sentadilla goblet (1 mancuerna)", "Push-ups (rodillas si hace falta)", "Remo inclinado (alternar)", "Zancada reversa (sin peso)", "Press de hombro (mancuernas)"] },
-            { label: "Vuelta a la calma (3 min)", items: ["Estiramiento cuadriceps, isquios, hombros", "Respiracion profunda 1 min"] }
+            { label: "Calentamiento (2 min)", items: [
+              "Jumping jacks — 30s · Saltos abriendo piernas y brazos a la vez",
+              "Rotaciones brazos — 30s · Brazos extendidos, circulos grandes",
+              "Sentadillas sin peso — 30s · Pies ancho de hombros, bajar como sentandose",
+              "Rotaciones cadera — 30s · Manos en cintura, circulos amplios"
+            ] },
+            { label: "Circuito x3 (10 min) — 40s/20s", items: [
+              "Sentadilla goblet · 1 mancuerna vertical al pecho, bajar hasta muslos paralelos",
+              "Push-ups · Manos mas anchas que hombros, pecho al suelo, cuerpo recto. De rodillas si hace falta",
+              "Remo inclinado · Inclinarse 45°, tirar mancuerna hacia cadera, codo al cuerpo. Alternar brazos",
+              "Zancada reversa · Paso largo atras, bajar rodilla casi al suelo, volver. Alternar",
+              "Press de hombro · Mancuernas a la altura de orejas, empujar arriba, bajar controlado"
+            ] },
+            { label: "Vuelta a la calma (3 min)", items: [
+              "Cuadriceps 30s/lado · De pie, talon al gluteo",
+              "Isquios 30s/lado · Pierna estirada en superficie, inclinar torso",
+              "Hombros 30s/lado · Brazo cruzado delante del pecho",
+              "Respiracion 1 min · Inhalar 4s nariz, exhalar 6s boca"
+            ] }
           ]
         },
         {
           nombre: "Miercoles — Tabata Cardio",
           fases: [
-            { label: "Calentamiento (2 min)", items: ["Marcha en sitio — 30s", "Jumping jacks suaves — 30s", "Rodillas al pecho — 30s", "Balanceo brazos — 30s"] },
-            { label: "Tabata x2 (8 min) — 20s/10s", items: ["B1: Burpees mod. / Mountain climbers / Squat pulsos / High knees (x2)", "B2: Zancadas alternas / Plank jacks / Speed skaters / Push-ups (x2)"] },
-            { label: "Vuelta a la calma (5 min)", items: ["Estiramiento completo"] }
+            { label: "Calentamiento (2 min)", items: [
+              "Marcha en sitio — 30s · Caminar levantando rodillas",
+              "Jumping jacks suaves — 30s · Sin saltar, abrir piernas alternando",
+              "Rodillas al pecho — 30s · Subir rodillas alternando, ritmo moderado",
+              "Balanceo brazos — 30s · Brazos sueltos, balancear cruzando delante"
+            ] },
+            { label: "Tabata x2 (8 min) — 20s/10s", items: [
+              "B1: Burpees mod. · Manos al suelo → pies atras a plancha → pies adelante → arriba. Sin flexion",
+              "B1: Mountain climbers · En plancha, rodillas al pecho alternando rapido",
+              "B1: Squat pulsos · Bajar a sentadilla, 3 rebotes cortos, subir",
+              "B1: High knees · Correr en sitio, rodillas lo mas alto posible",
+              "→ Repetir B1",
+              "B2: Zancadas alternas · Paso adelante, bajar, volver, alternar sin pausa",
+              "B2: Plank jacks · En plancha, abrir/cerrar piernas saltando",
+              "B2: Speed skaters · Saltar lateral pierna a pierna, tocar suelo con mano contraria",
+              "B2: Push-ups · Al ritmo que puedas",
+              "→ Repetir B2"
+            ] },
+            { label: "Vuelta a la calma (5 min)", items: ["Estiramiento completo: piernas, cadera, espalda, hombros"] }
           ]
         },
         {
           nombre: "Viernes — Core + Movilidad",
           fases: [
-            { label: "Calentamiento (2 min)", items: ["Cat-cow — 30s", "Rotaciones torso — 30s", "Bird dogs — 30s", "Puente gluteo — 30s"] },
-            { label: "Core x3 (8 min) — 30s/15s", items: ["Plancha frontal", "Dead bugs", "Plancha lateral izq/der", "Bicycle crunches", "Superman hold"] },
-            { label: "Movilidad (5 min)", items: ["90/90 hip stretch 45s/lado", "Pigeon pose 45s/lado", "Deep squat hold 30s", "Child's pose + forward fold"] }
+            { label: "Calentamiento (2 min)", items: [
+              "Cat-cow — 30s · En cuadrupedia, arquear espalda arriba (gato) y abajo (vaca)",
+              "Rotaciones torso — 30s · Pies fijos, girar torso a los lados, brazos sueltos",
+              "Bird dogs — 30s · Cuadrupedia, extender brazo + pierna opuestos, mantener 2s, alternar",
+              "Puente gluteo — 30s · Tumbado, pies apoyados, subir cadera apretando gluteos"
+            ] },
+            { label: "Core x3 (8 min) — 30s/15s", items: [
+              "Plancha frontal · Antebrazos y puntas, cuerpo recto, apretar abdomen. De rodillas si necesario",
+              "Dead bugs · Tumbado, brazos al techo, rodillas 90°. Extender brazo + pierna opuestos sin tocar suelo",
+              "Plancha lateral izq · Antebrazo izq, cuerpo de lado, cadera arriba",
+              "Plancha lateral der · Igual, lado derecho",
+              "Bicycle crunches · Manos en nuca, codo a rodilla contraria alternando. Despacio",
+              "Superman hold · Boca abajo, elevar brazos y piernas del suelo, mantener 2-3s"
+            ] },
+            { label: "Movilidad (5 min)", items: [
+              "90/90 hip stretch 45s/lado · Sentado, piernas en angulo 90°, inclinar torso sobre pierna delantera",
+              "Pigeon pose 45s/lado · Pierna doblada delante, otra estirada atras, bajar torso",
+              "Deep squat hold 30s · Sentadilla profunda, talones en suelo, codos empujan rodillas afuera",
+              "Child's pose 30s · De rodillas, sentarse sobre talones, brazos al frente, frente al suelo",
+              "Forward fold 30s · De pie, piernas rectas, dejar caer torso, manos hacia pies"
+            ] }
           ]
         }
       ]
@@ -683,33 +733,104 @@ const EJERCICIO = {
         {
           nombre: "Lunes — Tren Superior (Mancuernas)",
           fases: [
-            { label: "Calentamiento (3 min)", items: ["Arm circles, push-up to downward dog", "Pull-aparts con goma, jumping jacks", "Shoulder taps en plancha"] },
-            { label: "Circuito x4 (14 min) — 40s/20s", items: ["Press pecho en suelo", "Remo inclinado", "Press hombro", "Curl biceps", "Extension triceps (1 mancuerna)", "Push-ups"] },
-            { label: "Vuelta a la calma (3 min)", items: ["Estiramientos pecho, triceps, biceps, child's pose"] }
+            { label: "Calentamiento (3 min)", items: [
+              "Arm circles — 30s · Brazos extendidos, circulos que van creciendo",
+              "Push-up a downward dog — 30s · Push-up, al subir llevar cadera arriba en V invertida",
+              "Pull-aparts con goma — 30s · Goma al frente, abrir brazos a los lados",
+              "Jumping jacks — 30s",
+              "Shoulder taps — 30s · En plancha, tocar hombro contrario con mano, sin mover caderas",
+              "Rotaciones muneca — 30s"
+            ] },
+            { label: "Circuito x4 (14 min) — 40s/20s", items: [
+              "Press pecho en suelo · Tumbado en mat, empujar mancuernas arriba, bajar hasta codos tocan suelo",
+              "Remo inclinado · Inclinarse 45°, tirar ambas mancuernas hacia caderas, apretar espalda",
+              "Press hombro · Mancuernas a orejas, empujar arriba, bajar controlado",
+              "Curl biceps · Brazos pegados, subir mancuernas girando palmas arriba, sin balancear",
+              "Extension triceps · 1 mancuerna con 2 manos detras de cabeza, extender arriba, codos fijos",
+              "Push-ups · Completas o de rodillas"
+            ] },
+            { label: "Vuelta a la calma (3 min)", items: [
+              "Pecho 30s · Brazo en marco puerta, girar cuerpo afuera",
+              "Triceps 30s/lado · Brazo detras de cabeza, empujar codo",
+              "Biceps 30s/lado · Brazo estirado atras, palma en pared, girar",
+              "Child's pose 1 min"
+            ] }
           ]
         },
         {
           nombre: "Martes — HIIT Tabata",
           fases: [
-            { label: "Calentamiento (3 min)", items: ["Trote en sitio, jumping jacks, rodillas al pecho", "Sentadillas, inchworms, high knees"] },
-            { label: "Tabata x3 (12 min) — 20s/10s", items: ["B1: Burpees / Mountain climbers / Squat jumps / High knees", "B2: Plank jacks / Speed skaters / Jumping lunges / Push-ups", "B3: Star jumps / Bear crawl / Tuck jumps / Commandos"] },
+            { label: "Calentamiento (3 min)", items: [
+              "Trote en sitio — 30s",
+              "Jumping jacks — 30s",
+              "Rodillas al pecho — 30s",
+              "Sentadillas — 30s",
+              "Inchworms — 30s · De pie, manos al suelo, caminar con manos hasta plancha, volver, subir",
+              "High knees suaves — 30s"
+            ] },
+            { label: "Tabata x3 (12 min) — 20s/10s", items: [
+              "B1: Burpees · Completos o sin flexion/salto si necesario",
+              "B1: Mountain climbers · Plancha, rodillas al pecho rapido",
+              "B1: Squat jumps · Sentadilla + salto. Sin salto si rodillas molestan",
+              "B1: High knees",
+              "→ Repetir B1",
+              "B2: Plank jacks · Plancha, abrir/cerrar piernas",
+              "B2: Speed skaters · Salto lateral, tocar suelo con mano contraria",
+              "B2: Jumping lunges · Zancada + saltar cambiando piernas. Sin salto si necesario",
+              "B2: Push-ups",
+              "→ Repetir B2",
+              "B3: Star jumps · Desde sentadilla, saltar en X. O jumping jacks con sentadilla",
+              "B3: Bear crawl · Cuadrupedia, rodillas levantadas, 2 pasos adelante + 2 atras",
+              "B3: Tuck jumps · Saltar llevando rodillas al pecho. O rodillas al pecho de pie rapido",
+              "B3: Commandos · Plancha antebrazos → subir a manos una a una → bajar igual",
+              "→ Repetir B3"
+            ] },
             { label: "Vuelta a la calma (5 min)", items: ["Estiramiento completo"] }
           ]
         },
         {
           nombre: "Jueves — Tren Inferior",
           fases: [
-            { label: "Calentamiento (3 min)", items: ["Sentadillas, zancadas, hip circles", "Glute bridges, calf raises, leg swings"] },
-            { label: "Circuito x4 (14 min) — 40s/20s", items: ["Sentadilla goblet", "Peso muerto rumano", "Zancada bulgara (silla)", "Puente gluteo (mancuerna)", "Step-ups", "Elevaciones gemelos"] },
-            { label: "Vuelta a la calma (3 min)", items: ["Estiramientos cuadriceps, isquios, pigeon, gemelos"] }
+            { label: "Calentamiento (3 min)", items: [
+              "Sentadillas — 30s",
+              "Zancadas caminando — 30s · Pasos largos bajando rodilla, avanzar",
+              "Hip circles — 30s · Sobre una pierna, circulos con rodilla de la otra",
+              "Glute bridges — 30s · Tumbado, subir cadera apretando gluteos",
+              "Calf raises — 30s · Subir sobre puntas, bajar lento",
+              "Leg swings — 30s · Apoyado en pared, balancear pierna adelante-atras"
+            ] },
+            { label: "Circuito x4 (14 min) — 40s/20s", items: [
+              "Sentadilla goblet · 1 mancuerna pesada al pecho, bajar profundo, espalda recta",
+              "Peso muerto rumano · 2 mancuernas, bajar por delante de piernas, espalda recta, sentir tiron en isquios",
+              "Zancada bulgara · Pie trasero en silla, bajar rodilla al suelo, peso en pierna delantera",
+              "Puente gluteo · Tumbado, 1 mancuerna en cadera, subir apretando gluteos",
+              "Step-ups · Subir a escalon con una pierna, extender arriba, bajar. Alternar",
+              "Elevaciones gemelos · Con mancuernas, subir a puntas, aguantar 1s, bajar lento"
+            ] },
+            { label: "Vuelta a la calma (3 min)", items: [
+              "Cuadriceps 30s/lado · Talon al gluteo",
+              "Isquios 30s/lado · Pierna estirada, inclinar torso",
+              "Pigeon pose 30s/lado",
+              "Gemelos 30s/lado · Pie atras, talon clavado, inclinar hacia pared"
+            ] }
           ]
         },
         {
           nombre: "Viernes — Core + HIIT Finisher",
           fases: [
-            { label: "Calentamiento (2 min)", items: ["Cat-cow, bird dogs, dead bugs, glute bridges"] },
-            { label: "Core x3 (8 min) — 35s/15s", items: ["Plancha frontal", "Russian twists (mancuerna)", "Leg raises", "Plancha lateral izq/der", "V-ups o crunches"] },
-            { label: "HIIT Finisher (8 min) — AMRAP", items: ["5 burpees → 10 mountain climbers → 15 sentadillas → 20 jumping jacks", "Repetir sin parar. Anotar rondas."] },
+            { label: "Calentamiento (2 min)", items: ["Cat-cow — 30s", "Bird dogs — 30s", "Dead bugs — 30s", "Glute bridges — 30s"] },
+            { label: "Core x3 (8 min) — 35s/15s", items: [
+              "Plancha frontal · Antebrazos y puntas, cuerpo recto, apretar abdomen",
+              "Russian twists · Sentado a 45°, pies levantados, girar mancuerna de lado a lado tocando suelo",
+              "Leg raises · Tumbado, manos bajo gluteos, subir piernas rectas a 90°, bajar sin tocar suelo",
+              "Plancha lateral izq",
+              "Plancha lateral der",
+              "V-ups · Subir torso y piernas a la vez en V, tocar pies. Crunches si muy dificil"
+            ] },
+            { label: "HIIT Finisher (8 min) — AMRAP", items: [
+              "5 burpees → 10 mountain climbers (5/lado) → 15 sentadillas → 20 jumping jacks",
+              "Repetir sin parar. Anotar rondas completadas."
+            ] },
             { label: "Vuelta a la calma (2 min)", items: ["Respiracion + estiramiento rapido"] }
           ]
         }
