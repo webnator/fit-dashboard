@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-alt: #222633;
+    --accent: #10b981;
+    --accent2: #6366f1;
+    --accent3: #f59e0b;
+    --accent4: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border: #2d3348;
+    --success: #10b981;
+    --warning: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15, 17, 23, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  nav .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 2rem;
+    height: 56px;
+  }
+  nav .logo {
+    font-weight: 700; font-size: 1.2rem;
+    color: var(--accent);
+    display: flex; align-items: center; gap: .5rem;
+  }
+  nav .nav-links { display: flex; gap: .25rem; }
+  nav .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    padding: .5rem 1rem; border-radius: 8px;
+    font-size: .875rem; font-weight: 500;
+    transition: all .2s;
+  }
+  nav .nav-links a:hover, nav .nav-links a.active {
+    color: var(--text); background: var(--card);
+  }
+
+  /* LAYOUT */
+  main {
+    max-width: 1200px; margin: 0 auto;
+    padding: 2rem;
+  }
+  section { margin-bottom: 3rem; scroll-margin-top: 72px; }
+  section h2 {
+    font-size: 1.5rem; font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: .75rem;
+  }
+  section h2 .badge {
+    font-size: .75rem; font-weight: 600;
+    padding: .25rem .75rem; border-radius: 99px;
+    background: var(--accent); color: #000;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: var(--card); border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .stat-card .label {
+    font-size: .75rem; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--text-muted);
+    margin-bottom: .25rem;
+  }
+  .stat-card .value {
+    font-size: 2rem; font-weight: 700;
+  }
+  .stat-card .sub {
+    font-size: .8rem; color: var(--text-muted);
+    margin-top: .25rem;
+  }
+  .stat-card .sub.positive { color: var(--success); }
+  .stat-card .sub.negative { color: var(--accent4); }
+
+  /* CHART */
+  .chart-container {
+    background: var(--card); border-radius: 12px;
+    padding: 1.5rem; border: 1px solid var(--border);
+    position: relative; height: 320px;
+  }
+
+  /* MENU */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+  .day-card {
+    background: var(--card); border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .day-card .day-header {
+    padding: 1rem 1.25rem;
+    background: var(--card-alt);
+    font-weight: 700; font-size: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-card .day-header .protein-tag {
+    font-size: .7rem; font-weight: 600;
+    padding: .2rem .6rem; border-radius: 99px;
+    background: var(--accent); color: #000;
+  }
+  .day-card .day-header .toggle-icon {
+    transition: transform .2s;
+    color: var(--text-muted);
+  }
+  .day-card .day-header.open .toggle-icon {
+    transform: rotate(180deg);
+  }
+  .day-card .day-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .day-card .day-body.open {
+    max-height: 2000px;
+  }
+  .meal {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .meal-header {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: .5rem;
+  }
+  .meal-name {
+    font-weight: 600; font-size: .9rem;
+  }
+  .meal-kcal {
+    font-size: .75rem; color: var(--accent3);
+    font-weight: 600;
+  }
+  .meal-title {
+    font-size: .8rem; color: var(--accent);
+    margin-bottom: .5rem; font-style: italic;
+  }
+  .meal ul {
+    list-style: none; padding: 0;
+  }
+  .meal li {
+    font-size: .8rem; color: var(--text-muted);
+    padding: .15rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .meal li::before {
+    content: "·"; position: absolute; left: 0;
+    color: var(--border); font-weight: 700;
+  }
+  .meal .prep-note {
+    font-size: .75rem; color: var(--accent2);
+    background: rgba(99,102,241,.1);
+    padding: .5rem .75rem; border-radius: 8px;
+    margin-bottom: .5rem;
+  }
+
+  /* SHOPPING LIST */
+  .shop-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .shop-card {
+    background: var(--card); border-radius: 12px;
+    padding: 1.25rem; border: 1px solid var(--border);
+  }
+  .shop-card h3 {
+    font-size: .9rem; font-weight: 700;
+    margin-bottom: .75rem; color: var(--accent);
+  }
+  .shop-card label {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .85rem; padding: .3rem 0;
+    cursor: pointer; color: var(--text-muted);
+    transition: all .15s;
+  }
+  .shop-card label:hover { color: var(--text); }
+  .shop-card input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 16px; height: 16px;
+  }
+  .shop-card label.checked {
+    text-decoration: line-through;
+    opacity: .4;
+  }
+
+  /* EXERCISE */
+  .exercise-week {
+    background: var(--card); border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem; overflow: hidden;
+  }
+  .exercise-week .ew-header {
+    padding: 1rem 1.25rem;
+    background: var(--card-alt);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .exercise-week .ew-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .exercise-week .ew-body.open { max-height: 5000px; }
+  .exercise-day {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .exercise-day h4 {
+    font-size: .95rem; font-weight: 700;
+    color: var(--accent2); margin-bottom: .75rem;
+  }
+  .exercise-phase {
+    margin-bottom: .75rem;
+  }
+  .exercise-phase .phase-label {
+    font-size: .7rem; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--text-muted);
+    margin-bottom: .35rem; font-weight: 600;
+  }
+  .exercise-phase ol, .exercise-phase ul {
+    padding-left: 1.25rem;
+  }
+  .exercise-phase li {
+    font-size: .85rem; color: var(--text-muted);
+    padding: .15rem 0;
+  }
+
+  /* WEEK TABS */
+  .week-tabs {
+    display: flex; gap: .5rem; margin-bottom: 1.5rem;
+  }
+  .week-tabs button {
+    padding: .5rem 1.25rem; border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card); color: var(--text-muted);
+    font-weight: 600; font-size: .85rem;
+    cursor: pointer; transition: all .2s;
+  }
+  .week-tabs button.active {
+    background: var(--accent); color: #000;
+    border-color: var(--accent);
+  }
+  .week-content { display: none; }
+  .week-content.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    main { padding: 1rem; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .shop-columns { grid-template-columns: 1fr; }
+    nav .nav-inner { gap: 1rem; overflow-x: auto; }
+    nav .nav-links a { white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">FIT</div>
+    <div class="nav-links">
+      <a href="#progreso" class="active">Progreso</a>
+      <a href="#menu">Menu</a>
+      <a href="#compras">Compras</a>
+      <a href="#ejercicio">Ejercicio</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ========== PROGRESO ========== -->
+<section id="progreso">
+  <h2>Progreso <span class="badge">SUPERVISOR</span></h2>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="label">Peso actual</div>
+      <div class="value" id="peso-actual">--</div>
+      <div class="sub" id="peso-var">Pendiente primer pesaje</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Objetivo</div>
+      <div class="value" style="color:var(--accent)">75 kg</div>
+      <div class="sub" id="peso-faltan">-- kg por perder</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">IMC</div>
+      <div class="value" id="imc-actual">--</div>
+      <div class="sub" id="imc-cat">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Cintura</div>
+      <div class="value" id="cintura-actual">--</div>
+      <div class="sub">cm</div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="weightChart"></canvas>
+  </div>
+</section>
+
+<!-- ========== MENU ========== -->
+<section id="menu">
+  <h2>Menu <span class="badge" style="background:var(--accent3);color:#000">NUTRICIONISTA</span></h2>
+
+  <div class="week-tabs">
+    <button class="active" onclick="showWeek(1)">Semana 1</button>
+    <button onclick="showWeek(2)">Semana 2</button>
+  </div>
+
+  <div id="week1" class="week-content active">
+    <div class="menu-grid" id="menu-grid-1"></div>
+  </div>
+  <div id="week2" class="week-content">
+    <div class="menu-grid" id="menu-grid-2"></div>
+  </div>
+</section>
+
+<!-- ========== COMPRAS ========== -->
+<section id="compras">
+  <h2>Lista de Compras <span class="badge" style="background:var(--accent3);color:#000">2 SEMANAS</span></h2>
+
+  <div class="week-tabs">
+    <button class="active" onclick="showShop('principal')">Compra Principal</button>
+    <button onclick="showShop('reposicion')">Reposicion S2</button>
+  </div>
+
+  <div id="shop-principal" class="week-content active">
+    <div class="shop-columns" id="shop-main"></div>
+  </div>
+  <div id="shop-reposicion" class="week-content">
+    <div class="shop-columns" id="shop-repo"></div>
+  </div>
+</section>
+
+<!-- ========== EJERCICIO ========== -->
+<section id="ejercicio">
+  <h2>Entrenamiento <span class="badge" style="background:var(--accent2)">MES 1</span></h2>
+
+  <div id="exercise-container"></div>
+</section>
+
+</main>
+
+<script>
+// ==========================================
+// DATA — actualizar aqui con cada check-in
+// ==========================================
+
+const DATOS = {
+  altura: 176,
+  objetivo: 75,
+  pesajes: [
+    { fecha: "2026-04-05", peso: 84.95, cintura: 92, grasa: 27.4 },
+  ]
+};
+
+const MENU = {
+  semana1: [
+    {
+      dia: "Lunes", proteina: "Pollo",
+      prep: "Cocinar 300g pechuga/persona. 150g almuerzo + 150g cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con arandanos y almendras",
+          items: ["Yogurt griego 0%: 170g", "Arandanos: 60g", "Almendras: 18g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Pollo con quinoa y verduras salteadas",
+          items: ["Pechuga de pollo: 150g", "Quinoa: 45g (crudo)", "Calabacin: 70g", "Pimiento rojo: 60g", "Cebolla: 30g", "Aceite oliva: 1 cdta", "Sal, pimienta, ajo en polvo"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Manzana con crema de cacahuete",
+          items: ["Manzana: 1 mediana", "Crema de cacahuete: 10g"] },
+        { tipo: "Cena", kcal: 400, nombre: "Tacos de pollo con pico de gallo",
+          items: ["Tortillas maiz: 2 uds", "Pollo desmenuzado: 120g cocido", "Aguacate: 40g", "Tomate cherry: 50g", "Cebolla morada: 20g", "Cilantro, limon"] }
+      ]
+    },
+    {
+      dia: "Martes", proteina: "Carne picada",
+      prep: "Cocinar 250g carne picada/persona. Mitad bolonesa, mitad tacos.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 255, nombre: "Tostada con aguacate y huevo",
+          items: ["Pan integral: 35g", "Aguacate: 40g", "Huevo: 1", "Cherry: 30g", "Sesamo: 5g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Pasta bolonesa",
+          items: ["Carne picada: 125g", "Pasta integral: 55g", "Tomate triturado: 80g", "Cebolla: 20g", "Ajo: 1 diente", "Aceite: 1 cdta", "Parmesano: 10g"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Yogurt griego con muesli",
+          items: ["Yogurt griego 0%: 125g", "Muesli: 20g"] },
+        { tipo: "Cena", kcal: 395, nombre: "Tacos de carne picada",
+          items: ["Tortillas maiz: 2 uds", "Carne picada: 100g cocida", "Aguacate: 35g", "Canonigos: 30g", "Cherry: 40g", "Cilantro, limon"] }
+      ]
+    },
+    {
+      dia: "Miercoles", proteina: "Camarones",
+      prep: "Cocinar 350g camarones/persona con ajo, jengibre y soja.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 240, nombre: "Arepa con jamon y queso",
+          items: ["Harina PAN: 40g", "Jamon cocido: 30g", "Queso tierno: 20g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Camarones salteados con arroz integral",
+          items: ["Camarones: 180g", "Arroz integral: 45g", "Calabacin: 60g", "Pimiento: 50g", "Cebolla: 25g", "Aceite: 1.5 cdta", "Soja: 5ml", "Jengibre: 5g"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Frutos secos variados",
+          items: ["Mix almendras, nueces: 25g"] },
+        { tipo: "Cena", kcal: 410, nombre: "Ensalada tibia de camarones",
+          items: ["Camarones: 140g cocidos", "Canonigos: 60g", "Aguacate: 45g", "Cherry: 60g", "Quinoa cocida: 50g", "Vinagreta limon", "Sesamo: 5g"] }
+      ]
+    },
+    {
+      dia: "Jueves", proteina: "Atun + Huevos",
+      prep: "Huevos en desayuno y cena. Atun en almuerzo. Crema de calabaza para cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 260, nombre: "Huevos revueltos con jamon",
+          items: ["Huevos: 2", "Jamon cocido: 30g", "Pan integral: 35g", "Aceite: spray"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Ensalada de atun con quinoa",
+          items: ["Atun conserva: 100g", "Quinoa: 40g", "Cherry: 60g", "Espinacas: 60g", "Cebolla morada: 20g", "Aceite: 1 cdta", "Limon"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Platano con crema de cacahuete",
+          items: ["Platano pequeno: 1", "Crema cacahuete: 10g"] },
+        { tipo: "Cena", kcal: 390, nombre: "Crema de calabaza con sardina ahumada",
+          items: ["Calabaza: 250g", "Cebolla: 30g", "Caldo: 150ml", "Aceite: 1 cdta", "Sardina ahumada: 40g", "Feta: 15g", "Semillas calabaza: 8g", "Pan tostado: 25g"] }
+      ]
+    },
+    {
+      dia: "Viernes", proteina: "Secreto iberico",
+      prep: "Cocinar 140g secreto/persona. Plancha fuerte 2-3 min/lado. 70g almuerzo, 70g cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con muesli y fresas",
+          items: ["Yogurt griego 0%: 150g", "Muesli: 25g", "Fresas: 60g"] },
+        { tipo: "Almuerzo", kcal: 405, nombre: "Secreto iberico con patata y esparragos",
+          items: ["Secreto iberico: 70g", "Patata: 150g (airfryer)", "Esparragos: 120g", "Aceite: 1 cdta", "Sal escamas, pimienta"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Tostada con hummus",
+          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 30g"] },
+        { tipo: "Cena", kcal: 395, nombre: "Ensalada de secreto con rucula y parmesano",
+          items: ["Secreto en tiras: 55g cocido", "Rucula: 60g", "Cherry: 60g", "Aguacate: 40g", "Parmesano: 10g", "Vinagreta balsamica"] }
+      ]
+    }
+  ],
+  semana2: [
+    {
+      dia: "Lunes", proteina: "Pota",
+      prep: "Cocinar 350g pota/persona. Fuego fuerte con ajo. 180g almuerzo, 170g cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 260, nombre: "Tostada con salmon ahumado y aguacate",
+          items: ["Pan integral: 35g", "Salmon ahumado: 30g", "Aguacate: 35g", "Cherry: 30g"] },
+        { tipo: "Almuerzo", kcal: 395, nombre: "Pota salteada con arroz integral y verduras",
+          items: ["Pota: 180g", "Arroz integral: 45g", "Pimiento: 50g", "Calabacin: 60g", "Cebolla: 25g", "Aceite: 1.5 cdta", "Ajo: 2 dientes", "Pimenton, perejil"] },
+        { tipo: "Merienda", kcal: 145, nombre: "Yogurt con arandanos",
+          items: ["Yogurt griego 0%: 150g", "Arandanos: 50g"] },
+        { tipo: "Cena", kcal: 400, nombre: "Ensalada de pota con canonigos",
+          items: ["Pota: 145g cocida", "Canonigos: 60g", "Cherry: 60g", "Cebolla morada: 20g", "Aceitunas: 15g", "Patata cocida: 80g", "Vinagreta"] }
+      ]
+    },
+    {
+      dia: "Martes", proteina: "Pollo",
+      prep: "Cocinar 300g pechuga/persona con curry. 150g almuerzo, 150g cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Arepa con jamon cocido",
+          items: ["Harina PAN: 45g", "Jamon cocido: 35g", "Queso tierno: 20g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Pollo al curry con arroz",
+          items: ["Pechuga: 150g", "Leche coco light: 50ml", "Curry: 1 cdta", "Cebolla: 30g", "Tomate: 50g", "Arroz integral: 40g", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Manzana con crema de cacahuete",
+          items: ["Manzana: 1 mediana", "Crema cacahuete: 10g"] },
+        { tipo: "Cena", kcal: 400, nombre: "Tacos de pollo al curry",
+          items: ["Tortillas maiz: 2 uds", "Pollo curry: 120g", "Yogurt raita: 30g + pepino", "Canonigos: 30g", "Cilantro"] }
+      ]
+    },
+    {
+      dia: "Miercoles", proteina: "Carne picada",
+      prep: "Cocinar 250g carne/persona como chili con caraotas.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 260, nombre: "Huevos revueltos con tomate",
+          items: ["Huevos: 2", "Cherry: 50g", "Pan integral: 35g", "Aceite: spray"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Chili con carne y caraotas",
+          items: ["Carne picada: 125g", "Caraotas negras: 60g", "Tomate triturado: 80g", "Pimiento: 40g", "Cebolla: 25g", "Comino, pimenton, cayena", "Aceite: 1 cdta", "Arroz integral: 30g"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Frutos secos",
+          items: ["Mix variado: 25g"] },
+        { tipo: "Cena", kcal: 390, nombre: "Tacos de chili",
+          items: ["Tortillas maiz: 2 uds", "Chili: 120g", "Aguacate: 40g", "Cebolla morada: 15g", "Cilantro, limon", "Yogurt: 20g"] }
+      ]
+    },
+    {
+      dia: "Jueves", proteina: "Chuleta ahumada",
+      prep: "Cocinar 250g chuleta/persona a la plancha. 125g almuerzo, 125g cena.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con platano y muesli",
+          items: ["Yogurt griego 0%: 150g", "Platano: 1/2 (50g)", "Muesli: 20g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Chuleta ahumada con pure de calabaza",
+          items: ["Chuleta ahumada: 125g", "Calabaza: 200g", "Canonigos: 40g", "Cherry: 40g", "Aceite: 1 cdta", "Nuez moscada"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Tostada con hummus",
+          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 30g"] },
+        { tipo: "Cena", kcal: 400, nombre: "Crema de calabacin con chuleta",
+          items: ["Calabacin: 250g", "Cebolla: 30g", "Caldo: 150ml", "Chuleta troceada: 100g", "Aceite: 1 cdta", "Feta: 15g", "Pan tostado: 18g"] }
+      ]
+    },
+    {
+      dia: "Viernes", proteina: "Sardinas + Huevos",
+      prep: "Sin cocinar proteina extra. Sardinas de lata, tortilla al momento.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 260, nombre: "Sandwich de jamon y huevo",
+          items: ["Pan integral: 2 rebanadas (50g)", "Jamon cocido: 30g", "Huevo: 1", "Lechuga"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Ensalada de sardinas con quinoa",
+          items: ["Sardinas en aceite: 80g", "Quinoa: 40g", "Cherry: 60g", "Espinacas: 60g", "Cebolla morada: 20g", "Aguacate: 30g", "Limon"] },
+        { tipo: "Merienda", kcal: 145, nombre: "Yogurt con fresas",
+          items: ["Yogurt griego 0%: 125g", "Fresas: 60g"] },
+        { tipo: "Cena", kcal: 395, nombre: "Tortilla de calabacin con ensalada",
+          items: ["Huevos: 3", "Calabacin rallado: 100g", "Cebolla: 20g", "Feta: 20g", "Aceite: 1 cdta", "Rucula: 40g", "Cherry: 40g"] }
+      ]
+    }
+  ]
+};
+
+const COMPRAS = {
+  principal: {
+    "Proteinas": [
+      "Pechuga de pollo: 1.2 kg",
+      "Carne picada magra: 1 kg",
+      "Camarones pelados: 700g",
+      "Secreto iberico: 300g",
+      "Pota limpia: 700g (congelar)",
+      "Chuleta ahumada: 500g (congelar)",
+      "Huevos: 2.5 docenas (30 uds)",
+      "Jamon cocido: 400g",
+      "Sardina ahumada: 80g",
+      "Salmon ahumado: 80g",
+      "Atun en conserva: 2 latas",
+      "Sardinas en aceite: 2 latas"
+    ],
+    "Verduras": [
+      "Calabacin: 7 uds (~1 kg)",
+      "Pimiento rojo: 4 uds",
+      "Cebolla: 8 uds (~1 kg)",
+      "Cebolla morada: 2 uds",
+      "Tomate cherry: 4 bandejas (~1.1 kg)",
+      "Tomate: 1 ud",
+      "Champinones: 1 bandeja (200g)",
+      "Calabaza: 1 pieza grande (~1.1 kg)",
+      "Esparragos: 1 manojo (300g)",
+      "Patata: 4 medianas (~550g)",
+      "Pepino: 1 ud",
+      "Aceitunas negras: 1 bote"
+    ],
+    "Hojas verdes (S1)": [
+      "Espinacas: 1 bolsa (200g)",
+      "Canonigos: 1 bolsa (150g)",
+      "Rucula: 1 bolsa (100g)",
+      "Aguacate: 4 uds"
+    ],
+    "Frutas": [
+      "Manzanas: 7",
+      "Platanos pequenos: 5",
+      "Arandanos: 2 tarrinas (~450g)",
+      "Fresas: 2 tarrinas (~450g)",
+      "Limones: 7"
+    ],
+    "Lacteos": [
+      "Yogurt griego 0%: 6 botes (~3 kg)",
+      "Queso feta: 200g",
+      "Queso parmesano: 80g",
+      "Queso tierno: 200g",
+      "Leche coco light: 1 lata (200ml)"
+    ],
+    "Panaderia y cereales": [
+      "Pan integral: 2 paquetes",
+      "Tortillas maiz: 2 paquetes (~28 uds)",
+      "Quinoa: 300g",
+      "Arroz integral: 300g",
+      "Pasta integral: 250g",
+      "Muesli: 250g",
+      "Harina PAN: comprobar"
+    ],
+    "Legumbres": [
+      "Caraotas negras: 1 bote (400g)"
+    ],
+    "Despensa": [
+      "Aceite oliva virgen extra",
+      "Crema de cacahuete natural",
+      "Frutos secos: 350g",
+      "Hummus: 2 botes",
+      "Semillas sesamo",
+      "Semillas calabaza",
+      "Salsa de soja",
+      "Tomate triturado: 2 bricks",
+      "Vinagre balsamico",
+      "Caldo de verduras: 2 bricks"
+    ],
+    "Especias y hierbas": [
+      "Jengibre: 1 raiz",
+      "Ajo: 2 cabezas",
+      "Cilantro: 1 manojo",
+      "Oregano, pimenton, ajo en polvo",
+      "Curry, comino, cayena",
+      "Nuez moscada, sal escamas"
+    ]
+  },
+  reposicion: {
+    "Hojas verdes": [
+      "Espinacas: 1 bolsa (200g)",
+      "Canonigos: 1 bolsa (150g)",
+      "Rucula: 1 bolsa (100g)",
+      "Aguacate: 3 uds"
+    ],
+    "Hierbas frescas": [
+      "Cilantro: 1 manojo",
+      "Perejil: 1 manojo",
+      "Menta: 1 ramita (opcional)"
+    ],
+    "Reponer si falta": [
+      "Pan integral",
+      "Yogurt griego",
+      "Tomate cherry",
+      "Fruta"
+    ]
+  }
+};
+
+const EJERCICIO = {
+  titulo: "Mes 1 — Readaptacion",
+  semanas: [
+    {
+      nombre: "Semanas 1-2: Base (3 dias, 15 min)",
+      dias: [
+        {
+          nombre: "Lunes — Fuerza Full Body (Mancuernas)",
+          fases: [
+            { label: "Calentamiento (2 min)", items: ["Jumping jacks — 30s", "Rotaciones brazos — 30s", "Sentadillas sin peso — 30s", "Rotaciones cadera — 30s"] },
+            { label: "Circuito x3 (10 min) — 40s/20s", items: ["Sentadilla goblet (1 mancuerna)", "Push-ups (rodillas si hace falta)", "Remo inclinado (alternar)", "Zancada reversa (sin peso)", "Press de hombro (mancuernas)"] },
+            { label: "Vuelta a la calma (3 min)", items: ["Estiramiento cuadriceps, isquios, hombros", "Respiracion profunda 1 min"] }
+          ]
+        },
+        {
+          nombre: "Miercoles — Tabata Cardio",
+          fases: [
+            { label: "Calentamiento (2 min)", items: ["Marcha en sitio — 30s", "Jumping jacks suaves — 30s", "Rodillas al pecho — 30s", "Balanceo brazos — 30s"] },
+            { label: "Tabata x2 (8 min) — 20s/10s", items: ["B1: Burpees mod. / Mountain climbers / Squat pulsos / High knees (x2)", "B2: Zancadas alternas / Plank jacks / Speed skaters / Push-ups (x2)"] },
+            { label: "Vuelta a la calma (5 min)", items: ["Estiramiento completo"] }
+          ]
+        },
+        {
+          nombre: "Viernes — Core + Movilidad",
+          fases: [
+            { label: "Calentamiento (2 min)", items: ["Cat-cow — 30s", "Rotaciones torso — 30s", "Bird dogs — 30s", "Puente gluteo — 30s"] },
+            { label: "Core x3 (8 min) — 30s/15s", items: ["Plancha frontal", "Dead bugs", "Plancha lateral izq/der", "Bicycle crunches", "Superman hold"] },
+            { label: "Movilidad (5 min)", items: ["90/90 hip stretch 45s/lado", "Pigeon pose 45s/lado", "Deep squat hold 30s", "Child's pose + forward fold"] }
+          ]
+        }
+      ]
+    },
+    {
+      nombre: "Semanas 3-4: Progresion (4 dias, 20 min)",
+      dias: [
+        {
+          nombre: "Lunes — Tren Superior (Mancuernas)",
+          fases: [
+            { label: "Calentamiento (3 min)", items: ["Arm circles, push-up to downward dog", "Pull-aparts con goma, jumping jacks", "Shoulder taps en plancha"] },
+            { label: "Circuito x4 (14 min) — 40s/20s", items: ["Press pecho en suelo", "Remo inclinado", "Press hombro", "Curl biceps", "Extension triceps (1 mancuerna)", "Push-ups"] },
+            { label: "Vuelta a la calma (3 min)", items: ["Estiramientos pecho, triceps, biceps, child's pose"] }
+          ]
+        },
+        {
+          nombre: "Martes — HIIT Tabata",
+          fases: [
+            { label: "Calentamiento (3 min)", items: ["Trote en sitio, jumping jacks, rodillas al pecho", "Sentadillas, inchworms, high knees"] },
+            { label: "Tabata x3 (12 min) — 20s/10s", items: ["B1: Burpees / Mountain climbers / Squat jumps / High knees", "B2: Plank jacks / Speed skaters / Jumping lunges / Push-ups", "B3: Star jumps / Bear crawl / Tuck jumps / Commandos"] },
+            { label: "Vuelta a la calma (5 min)", items: ["Estiramiento completo"] }
+          ]
+        },
+        {
+          nombre: "Jueves — Tren Inferior",
+          fases: [
+            { label: "Calentamiento (3 min)", items: ["Sentadillas, zancadas, hip circles", "Glute bridges, calf raises, leg swings"] },
+            { label: "Circuito x4 (14 min) — 40s/20s", items: ["Sentadilla goblet", "Peso muerto rumano", "Zancada bulgara (silla)", "Puente gluteo (mancuerna)", "Step-ups", "Elevaciones gemelos"] },
+            { label: "Vuelta a la calma (3 min)", items: ["Estiramientos cuadriceps, isquios, pigeon, gemelos"] }
+          ]
+        },
+        {
+          nombre: "Viernes — Core + HIIT Finisher",
+          fases: [
+            { label: "Calentamiento (2 min)", items: ["Cat-cow, bird dogs, dead bugs, glute bridges"] },
+            { label: "Core x3 (8 min) — 35s/15s", items: ["Plancha frontal", "Russian twists (mancuerna)", "Leg raises", "Plancha lateral izq/der", "V-ups o crunches"] },
+            { label: "HIIT Finisher (8 min) — AMRAP", items: ["5 burpees → 10 mountain climbers → 15 sentadillas → 20 jumping jacks", "Repetir sin parar. Anotar rondas."] },
+            { label: "Vuelta a la calma (2 min)", items: ["Respiracion + estiramiento rapido"] }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// ==========================================
+// RENDER
+// ==========================================
+
+function renderStats() {
+  const p = DATOS.pesajes;
+  if (p.length === 0) return;
+
+  const last = p[p.length - 1];
+  const first = p[0];
+  const imc = (last.peso / (DATOS.altura/100) ** 2).toFixed(1);
+
+  document.getElementById('peso-actual').textContent = last.peso + ' kg';
+  document.getElementById('peso-faltan').textContent = (last.peso - DATOS.objetivo).toFixed(1) + ' kg por perder';
+
+  if (p.length > 1) {
+    const prev = p[p.length - 2];
+    const diff = (last.peso - prev.peso).toFixed(1);
+    const el = document.getElementById('peso-var');
+    if (diff <= 0) { el.textContent = diff + ' kg'; el.className = 'sub positive'; }
+    else { el.textContent = '+' + diff + ' kg'; el.className = 'sub negative'; }
+  } else {
+    document.getElementById('peso-var').textContent = 'Primer pesaje registrado';
+  }
+
+  document.getElementById('imc-actual').textContent = imc;
+  const imcNum = parseFloat(imc);
+  const imcEl = document.getElementById('imc-cat');
+  if (imcNum < 18.5) imcEl.textContent = 'Bajo peso';
+  else if (imcNum < 25) { imcEl.textContent = 'Normal'; imcEl.style.color = 'var(--success)'; }
+  else if (imcNum < 30) { imcEl.textContent = 'Sobrepeso'; imcEl.style.color = 'var(--warning)'; }
+  else { imcEl.textContent = 'Obesidad'; imcEl.style.color = 'var(--accent4)'; }
+
+  if (last.cintura) document.getElementById('cintura-actual').textContent = last.cintura;
+}
+
+function renderChart() {
+  const ctx = document.getElementById('weightChart').getContext('2d');
+  const p = DATOS.pesajes;
+
+  const labels = p.length > 0 ? p.map(d => d.fecha) : ['Inicio', '', '', '', '', 'Meta'];
+  const data = p.length > 0 ? p.map(d => d.peso) : [];
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Peso (kg)',
+          data: data,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 5,
+          pointBackgroundColor: '#10b981',
+        },
+        {
+          label: 'Objetivo',
+          data: labels.map(() => DATOS.objetivo),
+          borderColor: 'rgba(99,102,241,0.5)',
+          borderDash: [5, 5],
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#94a3b8' } }
+      },
+      scales: {
+        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(45,51,72,0.5)' } },
+        y: {
+          ticks: { color: '#94a3b8' },
+          grid: { color: 'rgba(45,51,72,0.5)' },
+          suggestedMin: 73,
+          suggestedMax: p.length > 0 ? Math.max(...p.map(d=>d.peso)) + 2 : 90
+        }
+      }
+    }
+  });
+}
+
+function renderMenu(weekData, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  weekData.forEach(day => {
+    const total = day.comidas.reduce((s, m) => s + m.kcal, 0);
+    const card = document.createElement('div');
+    card.className = 'day-card';
+    card.innerHTML = `
+      <div class="day-header" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>${day.dia} <span class="protein-tag">${day.proteina}</span></span>
+        <span style="font-size:.8rem;color:var(--text-muted)">${total} kcal <span class="toggle-icon">▼</span></span>
+      </div>
+      <div class="day-body">
+        <div class="meal"><div class="prep-note">🔪 ${day.prep}</div></div>
+        ${day.comidas.map(m => `
+          <div class="meal">
+            <div class="meal-header">
+              <span class="meal-name">${m.tipo}</span>
+              <span class="meal-kcal">~${m.kcal} kcal</span>
+            </div>
+            <div class="meal-title">${m.nombre}</div>
+            <ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function showWeek(n) {
+  document.querySelectorAll('.week-tabs button').forEach((b,i) => {
+    if (b.closest('#menu')) b.classList.toggle('active', i === n-1);
+  });
+  document.getElementById('week1').classList.toggle('active', n === 1);
+  document.getElementById('week2').classList.toggle('active', n === 2);
+}
+
+function renderShop(data, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  Object.entries(data).forEach(([cat, items]) => {
+    const card = document.createElement('div');
+    card.className = 'shop-card';
+    card.innerHTML = `<h3>${cat}</h3>` +
+      items.map((item, i) => `
+        <label id="shop-${containerId}-${cat}-${i}">
+          <input type="checkbox" onchange="this.parentElement.classList.toggle('checked')">
+          ${item}
+        </label>
+      `).join('');
+    container.appendChild(card);
+  });
+}
+
+function showShop(which) {
+  const tabs = document.querySelectorAll('#compras .week-tabs button');
+  tabs[0].classList.toggle('active', which === 'principal');
+  tabs[1].classList.toggle('active', which === 'reposicion');
+  document.getElementById('shop-principal').classList.toggle('active', which === 'principal');
+  document.getElementById('shop-reposicion').classList.toggle('active', which === 'reposicion');
+}
+
+function renderExercise() {
+  const container = document.getElementById('exercise-container');
+  container.innerHTML = '';
+
+  EJERCICIO.semanas.forEach((semana, si) => {
+    const week = document.createElement('div');
+    week.className = 'exercise-week';
+    week.innerHTML = `
+      <div class="ew-header" onclick="this.nextElementSibling.classList.toggle('open')">
+        <span>${semana.nombre}</span>
+        <span style="color:var(--text-muted)">▼</span>
+      </div>
+      <div class="ew-body${si === 0 ? ' open' : ''}">
+        ${semana.dias.map(dia => `
+          <div class="exercise-day">
+            <h4>${dia.nombre}</h4>
+            ${dia.fases.map(fase => `
+              <div class="exercise-phase">
+                <div class="phase-label">${fase.label}</div>
+                <ul>${fase.items.map(i => `<li>${i}</li>`).join('')}</ul>
+              </div>
+            `).join('')}
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(week);
+  });
+}
+
+// NAV active state
+document.querySelectorAll('nav .nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('nav .nav-links a').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+
+// INIT
+renderStats();
+renderChart();
+renderMenu(MENU.semana1, 'menu-grid-1');
+renderMenu(MENU.semana2, 'menu-grid-2');
+renderShop(COMPRAS.principal, 'shop-main');
+renderShop(COMPRAS.reposicion, 'shop-repo');
+renderExercise();
+</script>
+</body>
+</html>
