@@ -392,6 +392,8 @@ const DATOS = {
 };
 
 const MENU = {
+  semana1_inicio: "2026-04-06",
+  semana2_inicio: "2026-04-13",
   semana1: [
     {
       dia: "Lunes", proteina: "Pollo",
@@ -802,20 +804,27 @@ function renderChart() {
   });
 }
 
+function getTodayDia() {
+  const dias = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+  return dias[new Date().getDay()];
+}
+
 function renderMenu(weekData, containerId) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
+  const hoy = getTodayDia();
 
   weekData.forEach(day => {
     const total = day.comidas.reduce((s, m) => s + m.kcal, 0);
+    const isToday = day.dia === hoy;
     const card = document.createElement('div');
     card.className = 'day-card';
     card.innerHTML = `
-      <div class="day-header" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
-        <span>${day.dia} <span class="protein-tag">${day.proteina}</span></span>
+      <div class="day-header${isToday ? ' open' : ''}" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>${day.dia}${isToday ? ' 👈' : ''} <span class="protein-tag">${day.proteina}</span></span>
         <span style="font-size:.8rem;color:var(--text-muted)">${total} kcal <span class="toggle-icon">▼</span></span>
       </div>
-      <div class="day-body">
+      <div class="day-body${isToday ? ' open' : ''}">
         <div class="meal"><div class="prep-note">🔪 ${day.prep}</div></div>
         ${day.comidas.map(m => `
           <div class="meal">
@@ -910,6 +919,15 @@ renderStats();
 renderChart();
 renderMenu(MENU.semana1, 'menu-grid-1');
 renderMenu(MENU.semana2, 'menu-grid-2');
+
+// Auto-seleccionar semana actual
+(function() {
+  const hoy = new Date().toISOString().slice(0, 10);
+  if (MENU.semana2_inicio && hoy >= MENU.semana2_inicio) {
+    showWeek(2);
+  }
+})();
+
 renderShop(COMPRAS.principal, 'shop-main');
 renderShop(COMPRAS.reposicion, 'shop-repo');
 renderExercise();
