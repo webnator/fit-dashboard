@@ -312,6 +312,7 @@
       <div class="label">Peso actual</div>
       <div class="value" id="peso-actual">--</div>
       <div class="sub" id="peso-var">Pendiente primer pesaje</div>
+      <div class="sub" id="peso-var-prev" style="font-size:0.85em;opacity:0.7"></div>
     </div>
     <div class="stat-card">
       <div class="label">Objetivo</div>
@@ -856,11 +857,16 @@ function renderStats() {
   document.getElementById('peso-faltan').textContent = (last.peso - DATOS.objetivo).toFixed(1) + ' kg por perder';
 
   if (p.length > 1) {
-    const prev = p[p.length - 2];
-    const diff = (last.peso - prev.peso).toFixed(1);
+    const diffBase = (last.peso - first.peso).toFixed(1);
     const el = document.getElementById('peso-var');
-    if (diff <= 0) { el.textContent = diff + ' kg'; el.className = 'sub positive'; }
-    else { el.textContent = '+' + diff + ' kg'; el.className = 'sub negative'; }
+    const txtBase = (diffBase <= 0 ? '' : '+') + diffBase + ' kg vs base';
+    el.textContent = txtBase;
+    el.className = 'sub ' + (diffBase <= 0 ? 'positive' : 'negative');
+
+    const prev = p[p.length - 2];
+    const diffPrev = (last.peso - prev.peso).toFixed(1);
+    const elPrev = document.getElementById('peso-var-prev');
+    elPrev.textContent = (diffPrev <= 0 ? '' : '+') + diffPrev + ' kg vs anterior';
   } else {
     document.getElementById('peso-var').textContent = 'Primer pesaje registrado';
   }
