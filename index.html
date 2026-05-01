@@ -341,8 +341,8 @@
   <h2>Menu <span class="badge" style="background:var(--accent3);color:#000">NUTRICIONISTA</span></h2>
 
   <div class="week-tabs">
-    <button class="active" onclick="showWeek(1)">Semana 1</button>
-    <button onclick="showWeek(2)">Semana 2</button>
+    <button class="active" onclick="showWeek(1)">Semana 3</button>
+    <button onclick="showWeek(2)">Semana 4</button>
   </div>
 
   <div id="week1" class="week-content active">
@@ -359,7 +359,7 @@
 
   <div class="week-tabs">
     <button class="active" onclick="showShop('principal')">Compra Principal</button>
-    <button onclick="showShop('reposicion')">Reposicion S2</button>
+    <button onclick="showShop('reposicion')">Reposicion S4</button>
   </div>
 
   <div id="shop-principal" class="week-content active">
@@ -398,149 +398,149 @@ const DATOS = {
 };
 
 const MENU = {
-  semana1_inicio: "2026-04-20",
-  semana2_inicio: "2026-04-27",
+  semana1_inicio: "2026-05-04",
+  semana2_inicio: "2026-05-11",
   semana1: [
     {
-      dia: "Lunes", proteina: "Pollo",
-      prep: "Cocinar 300g pechuga/persona. 150g almuerzo + 150g cena.",
+      dia: "Lunes", proteina: "Pollo curry / Pota",
+      prep: "ALM: cocinar pollo curry para 4 raciones (lun + mié). CENA: pota fresca.",
       comidas: [
         { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con arandanos y almendras",
           items: ["Yogurt griego 0%: 170g", "Arandanos: 60g", "Almendras: 18g"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Pollo con quinoa y verduras salteadas",
-          items: ["Pechuga de pollo: 150g", "Quinoa: 45g (crudo)", "Calabacin: 70g", "Pimiento rojo: 60g", "Cebolla: 30g", "Aceite oliva: 1 cdta", "Sal, pimienta, ajo en polvo"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Manzana con crema de cacahuete",
-          items: ["Manzana: 1 mediana", "Crema de cacahuete: 10g"] },
-        { tipo: "Cena", kcal: 400, nombre: "Tacos de pollo con pico de gallo",
-          items: ["Tortillas maiz: 2 uds", "Pollo desmenuzado: 120g cocido", "Aguacate: 40g", "Tomate cherry: 50g", "Cebolla morada: 20g", "Cilantro, limon"] }
+        { tipo: "Almuerzo", kcal: 410, nombre: "Pollo al curry con champiñones y arroz",
+          items: ["Pechuga de pollo: 150g", "Champiñones: 100g", "Cebolla: 40g", "Tomate triturado: 60g", "Leche coco light: 40ml", "Curry: 1 cdta", "Ajo: 1 diente", "Arroz integral: 45g", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 140, nombre: "Manzana con crema de cacahuete",
+          items: ["Manzana mediana: 1", "Crema cacahuete: 7g"] },
+        { tipo: "Cena", kcal: 395, nombre: "Wok de pota con verduras y arroz",
+          items: ["Pota: 150g", "Pimiento rojo: 75g", "Calabacin: 80g", "Cebolla: 40g", "Champiñones: 60g", "Arroz integral: 40g", "Soja: 10ml", "Jengibre: 5g", "Aceite sesamo: 3ml", "Sesamo: 3g"] }
       ]
     },
     {
-      dia: "Martes", proteina: "Carne picada",
-      prep: "Cocinar 250g carne picada/persona. Mitad bolonesa, mitad tacos.",
+      dia: "Martes", proteina: "Albondigas / Langostinos",
+      prep: "ALM: cocinar albondigas en tomate para 4 raciones (mar + jue). CENA: langostinos al ajillo.",
       comidas: [
-        { tipo: "Desayuno", kcal: 255, nombre: "Tostada con aguacate y huevo",
-          items: ["Pan integral: 35g", "Aguacate: 40g", "Huevo: 1", "Cherry: 30g", "Sesamo: 5g"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Pasta bolonesa",
-          items: ["Carne picada: 125g", "Pasta integral: 55g", "Tomate triturado: 80g", "Cebolla: 20g", "Ajo: 1 diente", "Aceite: 1 cdta", "Parmesano: 10g"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Yogurt griego con muesli",
-          items: ["Yogurt griego 0%: 125g", "Muesli: 20g"] },
-        { tipo: "Cena", kcal: 395, nombre: "Tacos de carne picada",
-          items: ["Tortillas maiz: 2 uds", "Carne picada: 100g cocida", "Aguacate: 35g", "Canonigos: 30g", "Cherry: 40g", "Cilantro, limon"] }
+        { tipo: "Desayuno", kcal: 260, nombre: "Tostada con huevo y jamon",
+          items: ["Pan integral: 35g", "Huevo: 1 plancha", "Jamon cocido: 30g", "Cherry: 40g"] },
+        { tipo: "Almuerzo", kcal: 420, nombre: "Albondigas en salsa de tomate con pasta",
+          items: ["Carne picada: 110g", "Pasta integral: 50g", "Tomate triturado: 100g", "Cebolla: 30g", "Ajo: 1 diente", "Oregano, albahaca", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 145, nombre: "Yogurt con fresas",
+          items: ["Yogurt griego 0%: 125g", "Fresas: 60g"] },
+        { tipo: "Cena", kcal: 370, nombre: "Langostinos al ajillo con calabacin y patata baby",
+          items: ["Langostinos: 160g", "Calabacin: 150g", "Patata baby: 100g", "Ajo: 3 dientes", "Cayena, perejil", "Aceite: 1 cdta", "Sal escamas, limon"] }
       ]
     },
     {
-      dia: "Miercoles", proteina: "Camarones",
-      prep: "Cocinar 350g camarones/persona con ajo, jengibre y soja.",
+      dia: "Miercoles", proteina: "Pollo curry (repe) / Tortilla",
+      prep: "ALM: recalentar pollo curry del lunes con un poco de agua. CENA: tortilla al momento.",
       comidas: [
-        { tipo: "Desayuno", kcal: 240, nombre: "Arepa con jamon y queso",
-          items: ["Harina PAN: 40g", "Jamon cocido: 30g", "Queso tierno: 20g"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Camarones salteados con arroz integral",
-          items: ["Camarones: 180g", "Arroz integral: 45g", "Calabacin: 60g", "Pimiento: 50g", "Cebolla: 25g", "Aceite: 1.5 cdta", "Soja: 5ml", "Jengibre: 5g"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Frutos secos variados",
-          items: ["Mix almendras, nueces: 25g"] },
-        { tipo: "Cena", kcal: 410, nombre: "Ensalada tibia de camarones",
-          items: ["Camarones: 140g cocidos", "Canonigos: 60g", "Aguacate: 45g", "Cherry: 60g", "Quinoa cocida: 50g", "Vinagreta limon", "Sesamo: 5g"] }
+        { tipo: "Desayuno", kcal: 250, nombre: "Arepa con jamon y queso",
+          items: ["Harina PAN: 45g", "Jamon cocido: 35g", "Queso tierno: 20g"] },
+        { tipo: "Almuerzo", kcal: 410, nombre: "Pollo al curry con champiñones y arroz (repetido)",
+          items: ["Mismo plato del lunes", "Recalentar 2 min en sarten con un chorrito de agua"] },
+        { tipo: "Merienda", kcal: 135, nombre: "Frutos secos mixtos",
+          items: ["Mix almendras, nueces, anacardos: 22g"] },
+        { tipo: "Cena", kcal: 385, nombre: "Tortilla española de verduras",
+          items: ["Huevos: 3", "Calabacin: 80g", "Cebolla: 50g", "Pimiento rojo: 50g", "Champiñones: 50g", "Aceite: 1 cdta"] }
       ]
     },
     {
-      dia: "Jueves", proteina: "Atun + Huevos",
-      prep: "Huevos en desayuno y cena. Atun en almuerzo. Crema de calabaza para cena.",
+      dia: "Jueves", proteina: "Albondigas (repe) / Secreto iberico",
+      prep: "ALM: recalentar albondigas del martes a fuego suave con chorrito de agua. CENA: secreto iberico fresco.",
       comidas: [
-        { tipo: "Desayuno", kcal: 260, nombre: "Huevos revueltos con jamon",
-          items: ["Huevos: 2", "Jamon cocido: 30g", "Pan integral: 35g", "Aceite: spray"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Ensalada de atun con quinoa",
-          items: ["Atun conserva: 100g", "Quinoa: 40g", "Cherry: 60g", "Espinacas: 60g", "Cebolla morada: 20g", "Aceite: 1 cdta", "Limon"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Platano con crema de cacahuete",
-          items: ["Platano pequeno: 1", "Crema cacahuete: 10g"] },
-        { tipo: "Cena", kcal: 390, nombre: "Crema de calabaza con sardina ahumada",
-          items: ["Calabaza: 250g", "Cebolla: 30g", "Caldo: 150ml", "Aceite: 1 cdta", "Sardina ahumada: 40g", "Feta: 15g", "Semillas calabaza: 8g", "Pan tostado: 25g"] }
+        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con platano y muesli",
+          items: ["Yogurt griego 0%: 150g", "Platano: 1/2 (~50g)", "Muesli: 20g"] },
+        { tipo: "Almuerzo", kcal: 420, nombre: "Albondigas en tomate con pasta (repetido)",
+          items: ["Mismo plato del martes", "Recalentar a fuego suave con un poco de agua"] },
+        { tipo: "Merienda", kcal: 125, nombre: "Platano con nueces",
+          items: ["Platano pequeño: 1", "Nueces: 8g (3 mitades)"] },
+        { tipo: "Cena", kcal: 400, nombre: "Secreto iberico con esparragos y boniato",
+          items: ["Secreto iberico: 130g", "Esparragos verdes: 150g", "Boniato: 120g (airfryer)", "Ajo: 1 diente", "Pimenton ahumado", "Aceite: 1 cdta", "Sal escamas, pimienta"] }
       ]
     },
     {
-      dia: "Viernes", proteina: "Secreto iberico",
-      prep: "Cocinar 140g secreto/persona. Plancha fuerte 2-3 min/lado. 70g almuerzo, 70g cena.",
+      dia: "Viernes", proteina: "Langostinos / Salmon ahumado",
+      prep: "ALM: langostinos especiados rapidos. CENA: tartar de salmon ahumado al momento.",
       comidas: [
-        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con muesli y fresas",
-          items: ["Yogurt griego 0%: 150g", "Muesli: 25g", "Fresas: 60g"] },
-        { tipo: "Almuerzo", kcal: 405, nombre: "Secreto iberico con patata y esparragos",
-          items: ["Secreto iberico: 70g", "Patata: 150g (airfryer)", "Esparragos: 120g", "Aceite: 1 cdta", "Sal escamas, pimienta"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Tostada con hummus",
-          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 30g"] },
-        { tipo: "Cena", kcal: 395, nombre: "Ensalada de secreto con rucula y parmesano",
-          items: ["Secreto en tiras: 55g cocido", "Rucula: 60g", "Cherry: 60g", "Aguacate: 40g", "Parmesano: 10g", "Vinagreta balsamica"] }
+        { tipo: "Desayuno", kcal: 260, nombre: "Tostada con hummus y cherry",
+          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 60g", "Aceite: hilo (3ml)", "Oregano"] },
+        { tipo: "Almuerzo", kcal: 395, nombre: "Bol de langostinos especiados con quinoa",
+          items: ["Langostinos: 150g", "Quinoa: 50g", "Calabacin: 80g", "Espinacas: 50g", "Yogur 0%: 30g (salsa)", "Limon", "Mix comino + pimenton + canela: 1 cdta", "Ajo: 1 diente", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 145, nombre: "Yogurt con arandanos",
+          items: ["Yogurt griego 0%: 125g", "Arandanos: 50g"] },
+        { tipo: "Cena", kcal: 395, nombre: "Tartar de salmon ahumado con aguacate, tostada y huevo poche",
+          items: ["Salmon ahumado: 70g", "Aguacate: 50g", "Pan integral: 35g (tostado)", "Huevo: 1 (poche)", "Cebolla morada: 15g", "Alcaparras: 5g (opcional)", "Limon, eneldo", "Aceite: 3ml"] }
       ]
     }
   ],
   semana2: [
     {
-      dia: "Lunes", proteina: "Pota",
-      prep: "Cocinar 350g pota/persona. Fuego fuerte con ajo. 180g almuerzo, 170g cena.",
-      comidas: [
-        { tipo: "Desayuno", kcal: 260, nombre: "Tostada con salmon ahumado y aguacate",
-          items: ["Pan integral: 35g", "Salmon ahumado: 30g", "Aguacate: 35g", "Cherry: 30g"] },
-        { tipo: "Almuerzo", kcal: 395, nombre: "Pota salteada con arroz integral y verduras",
-          items: ["Pota: 180g", "Arroz integral: 45g", "Pimiento: 50g", "Calabacin: 60g", "Cebolla: 25g", "Aceite: 1.5 cdta", "Ajo: 2 dientes", "Pimenton, perejil"] },
-        { tipo: "Merienda", kcal: 145, nombre: "Yogurt con arandanos",
-          items: ["Yogurt griego 0%: 150g", "Arandanos: 50g"] },
-        { tipo: "Cena", kcal: 400, nombre: "Ensalada de pota con canonigos",
-          items: ["Pota: 145g cocida", "Canonigos: 60g", "Cherry: 60g", "Cebolla morada: 20g", "Aceitunas: 15g", "Patata cocida: 80g", "Vinagreta"] }
-      ]
-    },
-    {
-      dia: "Martes", proteina: "Pollo",
-      prep: "Cocinar 300g pechuga/persona con curry. 150g almuerzo, 150g cena.",
-      comidas: [
-        { tipo: "Desayuno", kcal: 250, nombre: "Arepa con jamon cocido",
-          items: ["Harina PAN: 45g", "Jamon cocido: 35g", "Queso tierno: 20g"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Pollo al curry con arroz",
-          items: ["Pechuga: 150g", "Leche coco light: 50ml", "Curry: 1 cdta", "Cebolla: 30g", "Tomate: 50g", "Arroz integral: 40g", "Aceite: 1 cdta"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Manzana con crema de cacahuete",
-          items: ["Manzana: 1 mediana", "Crema cacahuete: 10g"] },
-        { tipo: "Cena", kcal: 400, nombre: "Tacos de pollo al curry",
-          items: ["Tortillas maiz: 2 uds", "Pollo curry: 120g", "Yogurt raita: 30g + pepino", "Canonigos: 30g", "Cilantro"] }
-      ]
-    },
-    {
-      dia: "Miercoles", proteina: "Carne picada",
-      prep: "Cocinar 250g carne/persona como chili con caraotas.",
-      comidas: [
-        { tipo: "Desayuno", kcal: 260, nombre: "Huevos revueltos con tomate",
-          items: ["Huevos: 2", "Cherry: 50g", "Pan integral: 35g", "Aceite: spray"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Chili con carne y caraotas",
-          items: ["Carne picada: 125g", "Caraotas negras: 60g", "Tomate triturado: 80g", "Pimiento: 40g", "Cebolla: 25g", "Comino, pimenton, cayena", "Aceite: 1 cdta", "Arroz integral: 30g"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Frutos secos",
-          items: ["Mix variado: 25g"] },
-        { tipo: "Cena", kcal: 390, nombre: "Tacos de chili",
-          items: ["Tortillas maiz: 2 uds", "Chili: 120g", "Aguacate: 40g", "Cebolla morada: 15g", "Cilantro, limon", "Yogurt: 20g"] }
-      ]
-    },
-    {
-      dia: "Jueves", proteina: "Chuleta ahumada",
-      prep: "Cocinar 250g chuleta/persona a la plancha. 125g almuerzo, 125g cena.",
+      dia: "Lunes", proteina: "Cerdo curry / Tortitas calabacin",
+      prep: "ALM: cocinar cerdo al curry para 4 raciones (lun + mié). CENA: tortitas calabacin al momento.",
       comidas: [
         { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con platano y muesli",
-          items: ["Yogurt griego 0%: 150g", "Platano: 1/2 (50g)", "Muesli: 20g"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Chuleta ahumada con pure de calabaza",
-          items: ["Chuleta ahumada: 125g", "Calabaza: 200g", "Canonigos: 40g", "Cherry: 40g", "Aceite: 1 cdta", "Nuez moscada"] },
-        { tipo: "Merienda", kcal: 150, nombre: "Tostada con hummus",
-          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 30g"] },
-        { tipo: "Cena", kcal: 400, nombre: "Crema de calabacin con chuleta",
-          items: ["Calabacin: 250g", "Cebolla: 30g", "Caldo: 150ml", "Chuleta troceada: 100g", "Aceite: 1 cdta", "Feta: 15g", "Pan tostado: 18g"] }
+          items: ["Yogurt griego 0%: 150g", "Platano: 1/2 (~50g)", "Muesli: 20g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Curry de cerdo con champiñones y arroz",
+          items: ["Lomo cerdo: 140g", "Champiñones: 120g", "Cebolla: 50g", "Tomate triturado: 80g", "Curry: 1 cdta", "Cilantro molido: pizca", "Ajo: 1 diente", "Arroz integral: 45g", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Manzana con crema de cacahuete",
+          items: ["Manzana mediana: 1", "Crema cacahuete: 10g"] },
+        { tipo: "Cena", kcal: 385, nombre: "Tortitas de calabacin con queso y cherry asado",
+          items: ["Calabacin: 200g (rallado)", "Huevos: 2", "Parmesano: 20g", "Cebolla: 30g", "Cherry: 100g (airfryer)", "Aceite: 1 cdta", "Tomillo, sal, pimienta"] }
       ]
     },
     {
-      dia: "Viernes", proteina: "Sardinas + Huevos",
-      prep: "Sin cocinar proteina extra. Sardinas de lata, tortilla al momento.",
+      dia: "Martes", proteina: "Pasta carne / Wok langostinos",
+      prep: "ALM: cocinar pasta con carne para 4 raciones (mar + jue). CENA: wok langostinos.",
       comidas: [
-        { tipo: "Desayuno", kcal: 260, nombre: "Sandwich de jamon y huevo",
-          items: ["Pan integral: 2 rebanadas (50g)", "Jamon cocido: 30g", "Huevo: 1", "Lechuga"] },
-        { tipo: "Almuerzo", kcal: 400, nombre: "Ensalada de sardinas con quinoa",
-          items: ["Sardinas en aceite: 80g", "Quinoa: 40g", "Cherry: 60g", "Espinacas: 60g", "Cebolla morada: 20g", "Aguacate: 30g", "Limon"] },
+        { tipo: "Desayuno", kcal: 260, nombre: "Sandwich de huevo y jamon",
+          items: ["Pan integral: 50g (2 rebanadas)", "Huevo: 1 plancha", "Jamon cocido: 30g", "Lechuga"] },
+        { tipo: "Almuerzo", kcal: 420, nombre: "Pasta con carne picada, espinacas y chili",
+          items: ["Carne picada: 100g", "Pasta integral: 55g", "Espinacas: 60g", "Cebolla: 40g", "Ajo: 1 diente", "Tomate triturado: 80g", "Chili escamas", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 135, nombre: "Frutos secos mixtos",
+          items: ["Mix almendras, nueces, anacardos: 22g"] },
+        { tipo: "Cena", kcal: 380, nombre: "Wok de langostinos con verduras al sesamo",
+          items: ["Langostinos: 150g", "Calabacin: 100g", "Pimiento rojo: 75g", "Champiñones: 80g", "Cebolla: 40g", "Soja: 10ml", "Jengibre: 5g", "Ajo: 1 diente", "Aceite sesamo: 3ml", "Sesamo: 3g"] }
+      ]
+    },
+    {
+      dia: "Miercoles", proteina: "Cerdo curry (repe) / Hamburguesa",
+      prep: "ALM: recalentar cerdo curry del lunes. CENA: hamburguesa casera al momento.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Arepa con jamon y queso",
+          items: ["Harina PAN: 45g", "Jamon cocido: 35g", "Queso tierno: 20g"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Curry de cerdo con champiñones y arroz (repetido)",
+          items: ["Mismo plato del lunes", "Recalentar 2 min con chorrito de agua"] },
         { tipo: "Merienda", kcal: 145, nombre: "Yogurt con fresas",
           items: ["Yogurt griego 0%: 125g", "Fresas: 60g"] },
-        { tipo: "Cena", kcal: 395, nombre: "Tortilla de calabacin con ensalada",
-          items: ["Huevos: 3", "Calabacin rallado: 100g", "Cebolla: 20g", "Feta: 20g", "Aceite: 1 cdta", "Rucula: 40g", "Cherry: 40g"] }
+        { tipo: "Cena", kcal: 395, nombre: "Hamburguesa casera con calabacin y patata baby",
+          items: ["Carne picada: 120g", "Pan integral burger: 35g", "Calabacin: 100g", "Patata baby: 100g", "Cebolla caramelizada: 40g", "Tomate: 1 rodaja", "Lechuga: 1 hoja", "Mostaza Dijon: 5g", "Aceite: 1 cdta"] }
+      ]
+    },
+    {
+      dia: "Jueves", proteina: "Pasta carne (repe) / Pota encebollada",
+      prep: "ALM: recalentar pasta del martes con un poco de agua. CENA: pota encebollada fresca.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 250, nombre: "Yogurt con arandanos y almendras",
+          items: ["Yogurt griego 0%: 170g", "Arandanos: 60g", "Almendras: 18g"] },
+        { tipo: "Almuerzo", kcal: 420, nombre: "Pasta con carne picada y espinacas (repetido)",
+          items: ["Mismo plato del martes", "Recalentar a fuego suave"] },
+        { tipo: "Merienda", kcal: 130, nombre: "Manzana con crema de cacahuete",
+          items: ["Manzana mediana: 1", "Crema cacahuete: 5g"] },
+        { tipo: "Cena", kcal: 400, nombre: "Pota encebollada con arroz aromatico",
+          items: ["Pota: 150g", "Cebolla: 150g", "Tomate concentrado: 15g", "Caldo verduras: 100ml", "Ajo: 1 diente", "Perejil fresco", "Arroz integral: 50g (con ajo y laurel)", "Aceite: 1 cdta"] }
+      ]
+    },
+    {
+      dia: "Viernes", proteina: "Pollo limon / Revuelto esparragos",
+      prep: "ALM: pollo a la plancha al limon en el momento. CENA: revuelto rapido.",
+      comidas: [
+        { tipo: "Desayuno", kcal: 260, nombre: "Tostada con hummus y cherry",
+          items: ["Pan integral: 35g", "Hummus: 30g", "Cherry: 60g", "Aceite: hilo (3ml)", "Oregano"] },
+        { tipo: "Almuerzo", kcal: 400, nombre: "Pollo al limon con quinoa y verduras",
+          items: ["Pechuga: 140g", "Quinoa: 45g", "Calabacin: 80g", "Pimiento rojo: 60g", "Limon: 1/2 (zumo + ralladura)", "Ajo: 1 diente", "Tomillo, romero u oregano", "Aceite: 1 cdta"] },
+        { tipo: "Merienda", kcal: 150, nombre: "Platano con nueces",
+          items: ["Platano pequeño: 1", "Nueces: 12g (4 mitades)"] },
+        { tipo: "Cena", kcal: 380, nombre: "Revuelto de esparragos y champiñones con parmesano",
+          items: ["Huevos: 3", "Esparragos verdes: 120g", "Champiñones: 120g", "Parmesano: 15g", "Ajo: 1 diente", "Aceite: 1 cdta", "Pan integral tostado: 18g (opcional)"] }
       ]
     }
   ]
@@ -549,103 +549,99 @@ const MENU = {
 const COMPRAS = {
   principal: {
     "Proteinas": [
-      "Pechuga de pollo: 1.2 kg",
-      "Carne picada magra: 1 kg",
-      "Camarones pelados: 700g",
-      "Secreto iberico: 300g",
-      "Pota limpia: 700g (congelar)",
-      "Chuleta ahumada: 500g (congelar)",
-      "Huevos: 2.5 docenas (30 uds)",
-      "Jamon cocido: 400g",
-      "Sardina ahumada: 80g",
-      "Salmon ahumado: 80g",
-      "Atun en conserva: 2 latas",
-      "Sardinas en aceite: 2 latas"
+      "Pechuga de pollo: 900g",
+      "Carne picada de ternera: 1.2 kg",
+      "Lomo de cerdo: 600g (congelar para S4)",
+      "Secreto iberico: 300g (congelar mitad)",
+      "Pota limpia: 650g (congelar mitad)",
+      "Langostinos pelados: 950g (pueden ser congelados)",
+      "Salmon ahumado: 150g",
+      "Jamon cocido: 300g",
+      "Huevos: 2.5 docenas (30 uds)"
     ],
     "Verduras": [
-      "Calabacin: 7 uds (~1 kg)",
-      "Pimiento rojo: 4 uds",
-      "Cebolla: 8 uds (~1 kg)",
+      "Champiñones: 1.5 kg (~8 bandejas 200g)",
+      "Calabacin: 9 uds (~1.7 kg)",
+      "Cebolla amarilla: 10 uds (~1.3 kg)",
       "Cebolla morada: 2 uds",
-      "Tomate cherry: 4 bandejas (~1.1 kg)",
-      "Tomate: 1 ud",
-      "Champinones: 1 bandeja (200g)",
-      "Calabaza: 1 pieza grande (~1.1 kg)",
-      "Esparragos: 1 manojo (300g)",
-      "Patata: 4 medianas (~550g)",
-      "Pepino: 1 ud",
-      "Aceitunas negras: 1 bote"
+      "Pimiento rojo: 4 uds (~600g)",
+      "Tomate cherry: 3 bandejas (~750g)",
+      "Tomate de ensalada: 1 ud",
+      "Esparragos verdes: 2 manojos (~600g)",
+      "Boniato: 1 ud (~240g)",
+      "Patata baby: 1 bolsa (500g)",
+      "Ajo: 2 cabezas",
+      "Jengibre fresco: 1 raiz"
     ],
-    "Hojas verdes (S1)": [
-      "Espinacas: 1 bolsa (200g)",
-      "Canonigos: 1 bolsa (150g)",
-      "Rucula: 1 bolsa (100g)",
-      "Aguacate: 4 uds"
+    "Hojas verdes (S3)": [
+      "Espinacas frescas: 1 bolsa grande (~250g)",
+      "Lechuga o canonigos: 1 bolsa"
     ],
     "Frutas": [
-      "Manzanas: 7",
-      "Platanos pequenos: 5",
-      "Arandanos: 2 tarrinas (~450g)",
-      "Fresas: 2 tarrinas (~450g)",
-      "Limones: 7"
+      "Manzanas: 6",
+      "Platanos pequeños: 6",
+      "Arandanos: 2 tarrinas (~250g)",
+      "Fresas: 1 tarrina grande (~250g)",
+      "Limones: 6",
+      "Aguacate: 2 uds"
     ],
     "Lacteos": [
       "Yogurt griego 0%: 6 botes (~3 kg)",
-      "Queso feta: 200g",
-      "Queso parmesano: 80g",
-      "Queso tierno: 200g",
+      "Queso parmesano: cuña (~80g)",
+      "Queso tierno mezcla: 80g",
       "Leche coco light: 1 lata (200ml)"
     ],
     "Panaderia y cereales": [
-      "Pan integral: 2 paquetes",
-      "Tortillas maiz: 2 paquetes (~28 uds)",
-      "Quinoa: 300g",
-      "Arroz integral: 300g",
-      "Pasta integral: 250g",
-      "Muesli: 250g",
-      "Harina PAN: comprobar"
-    ],
-    "Legumbres": [
-      "Caraotas negras: 1 bote (400g)"
+      "Pan integral: 2 paquetes (~24 rebanadas)",
+      "Pan de hamburguesa integral: 2 uds",
+      "Arroz integral: 1 kg",
+      "Pasta integral: 500g",
+      "Quinoa: 250g",
+      "Harina PAN: comprobar",
+      "Muesli: comprobar"
     ],
     "Despensa": [
       "Aceite oliva virgen extra",
+      "Aceite de sesamo (~50ml)",
       "Crema de cacahuete natural",
-      "Frutos secos: 350g",
-      "Hummus: 2 botes",
-      "Semillas sesamo",
-      "Semillas calabaza",
+      "Hummus: 1 bote",
+      "Mostaza Dijon",
       "Salsa de soja",
-      "Tomate triturado: 2 bricks",
-      "Vinagre balsamico",
-      "Caldo de verduras: 2 bricks"
+      "Tomate triturado: 2 bricks (~1.5 kg)",
+      "Tomate concentrado: 1 tubo/lata",
+      "Caldo de verduras: 1 brick",
+      "Almendras crudas: ~80g",
+      "Nueces: ~50g",
+      "Mix frutos secos: ~120g",
+      "Semillas sesamo: ~20g",
+      "Alcaparras pequeñas (opcional, tartar)"
     ],
     "Especias y hierbas": [
-      "Jengibre: 1 raiz",
-      "Ajo: 2 cabezas",
-      "Cilantro: 1 manojo",
-      "Oregano, pimenton, ajo en polvo",
-      "Curry, comino, cayena",
-      "Nuez moscada, sal escamas"
+      "Curry, cilantro molido, comino",
+      "Pimenton ahumado y dulce",
+      "Cayena / chili escamas",
+      "Oregano, tomillo, romero, albahaca seca",
+      "Canela",
+      "Pimienta negra, sal escamas",
+      "Perejil fresco: 1 manojo",
+      "Eneldo o cebollino: 1 ramita (tartar)"
     ]
   },
   reposicion: {
     "Hojas verdes": [
-      "Espinacas: 1 bolsa (200g)",
-      "Canonigos: 1 bolsa (150g)",
-      "Rucula: 1 bolsa (100g)",
-      "Aguacate: 3 uds"
+      "Espinacas frescas: 1 bolsa grande (~250g, para pasta S4)",
+      "Lechuga: si se acabo"
     ],
     "Hierbas frescas": [
-      "Cilantro: 1 manojo",
-      "Perejil: 1 manojo",
-      "Menta: 1 ramita (opcional)"
+      "Perejil: 1 manojo (pota encebollada jue S4)",
+      "Romero o tomillo (si no quedaron secos)"
     ],
     "Reponer si falta": [
       "Pan integral",
       "Yogurt griego",
-      "Tomate cherry",
-      "Fruta"
+      "Tomate cherry (lun S4 cena)",
+      "Fruta fresca",
+      "Aguacate (no critico)"
     ]
   }
 };
